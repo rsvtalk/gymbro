@@ -6,7 +6,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
         body {
             font-size: 32px;
             line-height: 1.5;
@@ -73,7 +72,6 @@
             max-width: 1000px;
         }
 
-        /* Стили для заголовка GymBro */
         .gymbro-header {
             color: firebrick;
             font-family: 'Montserrat', sans-serif;
@@ -84,7 +82,6 @@
             margin-bottom: 20px;
         }
 
-        /* Секция информации о пользователе */
         .user-info {
             background: white;
             border-radius: 16px;
@@ -125,7 +122,6 @@
             color: #2c2c2c;
         }
 
-        /* Стили для таблицы веса */
         .table-spacing {
             margin-bottom: 40px;
         }
@@ -179,7 +175,6 @@
             font-weight: 500;
         }
 
-        /* Стили для шкалы калорий */
         .calorie-scale {
             background: white;
             border-radius: 16px;
@@ -239,7 +234,6 @@
             margin-top: 4px;
         }
 
-        /* Кнопка добавления веса */
         .add-weight-section {
             display: flex;
             justify-content: space-between;
@@ -263,11 +257,9 @@
     <h2 class="gymbro-header">GymBro</h2>
     <hr class="divider"/>
 
-    <!-- Информация о пользователе -->
     <div class="user-info">
         <h3>Информация о пользователе</h3>
         <div class="info-grid">
-            <!-- Левый столбец -->
             <div>
                 <div class="info-item">
                     <span class="info-label">Имя:</span>
@@ -283,7 +275,6 @@
                 </div>
             </div>
 
-            <!-- Правый столбец -->
             <div>
                 <div class="info-item">
                     <span class="info-label">Рост:</span>
@@ -304,7 +295,6 @@
 
     <hr class="middle-divider"/>
 
-    <!-- Кнопки добавления веса и просмотра всей истории -->
     <div class="add-weight-section">
         <div class="button-left">
             <a th:href="@{/weight/all}"><button class="btn-secondary" type="button">Вся история веса</button></a>
@@ -314,7 +304,6 @@
         </div>
     </div>
 
-    <!-- История веса -->
     <div class="table-spacing">
         <h3 style="font-family: 'Montserrat', sans-serif; color: #333; text-align: center; margin-bottom: 30px; font-size: 2rem;">
             История веса
@@ -329,10 +318,8 @@
                 <td th:if="${iterStat.index < 7}" th:text="${#temporals.format(weight.weightDate.toLocalDateTime().toLocalDate(), 'dd.MM.yyyy')}"></td>
                 <td th:if="${iterStat.index < 7}" class="data-value" th:text="${#numbers.formatDecimal(weight.personWeight, 1, 1)}"></td>
                 <td th:if="${iterStat.index < 7}">
-                    <!-- Для последнего элемента не показываем изменение -->
                     <span th:if="${iterStat.index == weights.size() - 1}">-</span>
 
-                    <!-- Для всех кроме последнего - показываем разницу -->
                     <span th:if="${iterStat.index < weights.size() - 1}">
             <span th:if="${weightDifference[iterStat.index] != 0}">
                 <span th:class="${weightDifference[iterStat.index] > 0 ? 'weight-change-positive' : 'weight-change-negative'}">
@@ -349,12 +336,10 @@
 
     <hr class="middle-divider"/>
 
-    <!-- Шкала рекомендаций по калориям -->
     <div class="calorie-scale">
         <h3>Рекомендации по калориям</h3>
 
         <div class="scale-container">
-            <!-- Градиентная шкала -->
         </div>
 
         <div class="scale-markers">
@@ -388,7 +373,6 @@
 
     <hr class="divider"/>
 
-    <!-- Кнопка назад -->
     <div style="text-align: center; margin-top: 40px;">
         <a th:href="@{/menu}"><button class="btn" type="button">Назад</button></a>
     </div>

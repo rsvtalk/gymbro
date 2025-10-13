@@ -6,7 +6,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
         body {
             font-size: 32px;
             line-height: 1.5;
@@ -111,7 +110,6 @@
             font-weight: 500;
         }
 
-        /* ПАГИНАЦИЯ ИЗ ТВОЕГО ПРИМЕРА */
         .pagination {
             margin: 40px 0;
             text-align: center;
@@ -181,7 +179,6 @@
         </table>
     </div>
 
-    <!-- ПАГИНАЦИЯ ИЗ ТВОЕГО ПРИМЕРА -->
     <div th:if="${weights.totalPages > 1}" class="pagination">
         <span th:each="i : ${#numbers.sequence(0, weights.totalPages - 1)}">
             <span th:if="${i == weights.number}" class="current">[[${i + 1}]]</span>
@@ -192,7 +189,6 @@
 
     <hr class="divider"/>
 
-    <!-- Кнопка назад -->
     <div style="text-align: center; margin-top: 40px;">
         <a th:href="@{/weight}"><button class="btn" type="button">Назад</button></a>
     </div>

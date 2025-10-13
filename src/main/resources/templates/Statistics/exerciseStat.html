@@ -6,28 +6,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
         body {
-            font-size: 32px; /* 16px × 2 = 32px */
+            font-size: 32px;
             line-height: 1.5;
             margin: 0;
-            padding: 40px 0; /* 20px × 2 */
+            padding: 40px 0;
             background: #fafafa;
         }
 
         .container {
-            max-width: 1800px; /* 900px × 2 */
+            max-width: 1800px;
             margin: 0 auto;
-            padding: 0 40px; /* 20px × 2 */
+            padding: 0 40px;
         }
 
         .btn {
             background: firebrick;
             color: white;
-            padding: 24px 48px; /* 12×24 ×2 */
+            padding: 24px 48px;
             border: none;
-            border-radius: 16px; /* 8px ×2 */
-            font-size: 2rem; /* 1rem ×2 */
+            border-radius: 16px;
+            font-size: 2rem;
             cursor: pointer;
             transition: all 0.3s;
             font-family: 'Montserrat', sans-serif;
@@ -35,34 +34,33 @@
 
         .btn:hover {
             background: #b22222;
-            transform: translateY(-4px); /* 2px ×2 */
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 4×8 ×2 */
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
 
         .divider {
             border: none;
-            height: 4px; /* 2px ×2 */
+            height: 4px;
             background: linear-gradient(90deg, transparent, firebrick, transparent);
-            margin: 40px auto; /* 20px ×2 */
-            max-width: 1000px; /* 500px ×2 */
+            margin: 40px auto;
+            max-width: 1000px;
         }
 
         .table-spacing {
-            margin-bottom: 40px; /* 20px ×2 */
+            margin-bottom: 40px;
         }
 
-        /* Таблица - всё ×2 */
         table {
             border-collapse: collapse;
             width: auto;
             margin: 0 auto;
             font-family: 'Roboto', sans-serif;
             font-weight: 400;
-            border-radius: 12px; /* 6px ×2 */
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* 2×6 ×2 */
-            min-width: 800px; /* 400px ×2 */
-            font-size: 1.8rem; /* 0.9rem ×2 */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            min-width: 800px;
+            font-size: 1.8rem;
             background: #fafafa;
             max-width: 90%;
         }
@@ -70,18 +68,18 @@
         th {
             background: #f0f0f0;
             color: #333;
-            padding: 24px 30px; /* 12×15 ×2 */
+            padding: 24px 30px;
             font-weight: 500;
-            border-bottom: 4px solid #666; /* 2px ×2 */
+            border-bottom: 4px solid #666;
             text-align: center;
-            font-size: 1.9rem; /* 0.95rem ×2 */
+            font-size: 1.9rem;
         }
 
         td {
-            padding: 20px 30px; /* 10×15 ×2 */
-            border-bottom: 2px solid #e0e0e0; /* 1px ×2 */
+            padding: 20px 30px;
+            border-bottom: 2px solid #e0e0e0;
             background: #fafafa;
-            font-size: 1.8rem; /* 0.9rem ×2 */
+            font-size: 1.8rem;
         }
 
         tr:hover td {
@@ -121,7 +119,7 @@
 
         .reps-change {
             text-align: right;
-            min-width: 80px; /* 40px ×2 */
+            min-width: 80px;
         }
 
         .centered {
@@ -136,29 +134,29 @@
 
         .back-button {
             text-align: center;
-            margin-top: 40px; /* 20px ×2 */
+            margin-top: 40px;
         }
 
         .pagination {
-            margin: 40px 0; /* 20px ×2 */
+            margin: 40px 0;
             text-align: center;
             font-family: 'Roboto', sans-serif;
         }
 
         .pagination a, .pagination span {
             display: inline-block;
-            padding: 16px 24px; /* 8×12 ×2 */
-            margin: 0 4px; /* 2px ×2 */
-            border-radius: 8px; /* 4px ×2 */
+            padding: 16px 24px;
+            margin: 0 4px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 500;
-            font-size: 1.8rem; /* 0.9rem ×2 */
+            font-size: 1.8rem;
         }
 
         .pagination a {
             color: firebrick;
             background: white;
-            border: 2px solid #ddd; /* 1px ×2 */
+            border: 2px solid #ddd;
         }
 
         .pagination a:hover {
@@ -169,7 +167,7 @@
         .pagination span.current {
             background: firebrick;
             color: white;
-            border: 2px solid firebrick; /* 1px ×2 */
+            border: 2px solid firebrick;
         }
 
         th.right-align {
@@ -204,17 +202,13 @@
                 <th>Повторы</th>
             </tr>
 
-            <!-- Строки с датами вместо упражнений -->
             <tr th:each="we, iterStat : ${exerciseHistory.content}">
-                <!-- ДАТА -->
                 <td>
                     <div class="date-value" th:text="${#temporals.format(we.workout.date.toLocalDateTime(), 'dd.MM.yyyy')} + ' (' + ${#strings.toLowerCase(#temporals.format(we.workout.date.toLocalDateTime(), 'EEEE'))} + ')'"></div>
                 </td>
 
-                <!-- ВЕС -->
                 <td class="right-align data-value" th:text="${we.workWeight}"></td>
 
-                <!-- ДЕЛЬТА ВЕСА -->
                 <td th:classappend="${weightChanges[iterStat.index] == 0} ? 'centered' : 'right-align'">
                     <span th:with="fullIndex=${exerciseHistory.number * exerciseHistory.size + iterStat.index}">
                         <span th:if="${weightChanges[fullIndex] != 0}">
@@ -229,7 +223,6 @@
                     </span>
                 </td>
 
-                <!-- ПОВТОРЫ -->
                 <td>
                     <div class="reps-container">
                         <span class="reps-count data-value" th:text="${we.reps}"></span>
@@ -249,7 +242,6 @@
         </table>
     </div>
 
-    <!-- ПАГИНАЦИЯ -->
     <div th:if="${exerciseHistory.totalPages > 1}" class="pagination">
         <span th:each="i : ${#numbers.sequence(0, exerciseHistory.totalPages - 1)}">
             <span th:if="${i == exerciseHistory.number}" class="current">[[${i + 1}]]</span>

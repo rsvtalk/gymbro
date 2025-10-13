@@ -144,10 +144,8 @@
     <form th:action="@{/settings/edit}" th:object="${person}" method="post" class="settings-form">
         <input type="hidden" name="_method" value="patch" />
 
-        <!-- Личные данные -->
         <h4 class="subsection-title">Личные данные</h4>
 
-        <!-- Имя -->
         <div class="form-group">
             <label class="form-label">Имя</label>
             <input type="text"
@@ -156,7 +154,6 @@
                    placeholder="Введите ваше имя">
         </div>
 
-        <!-- Рост -->
         <div class="form-group">
             <label class="form-label">Рост (см)</label>
             <input type="number"
@@ -167,7 +164,6 @@
                    max="250">
         </div>
 
-        <!-- Год рождения -->
         <div class="form-group">
             <label class="form-label">Год рождения</label>
             <input type="number"
@@ -178,13 +174,10 @@
                    max="2024">
         </div>
 
-        <!-- Разделитель между секциями -->
         <hr class="section-divider"/>
 
-        <!-- Единицы измерения -->
         <h4 class="subsection-title">Единицы измерения</h4>
 
-        <!-- Единица измерения веса -->
         <div class="form-group">
             <label class="form-label">Единица измерения веса</label>
             <select th:field="*{weightUnit}" class="form-select">
@@ -194,7 +187,6 @@
             </select>
         </div>
 
-        <!-- Единица измерения длины -->
         <div class="form-group">
             <label class="form-label">Единица измерения длины</label>
             <select th:field="*{heightUnit}" class="form-select">
@@ -212,7 +204,6 @@
 
     <hr class="divider"/>
 
-    <!-- Кнопка назад -->
     <div style="text-align: center; margin-top: 40px;">
         <a th:href="@{/menu}"><button class="btn" type="button">Назад</button></a>
     </div>

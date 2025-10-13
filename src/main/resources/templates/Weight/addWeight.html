@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
         body {
             font-size: 32px;
             line-height: 1.5;
@@ -49,7 +48,6 @@
             max-width: 1000px;
         }
 
-        /* Стили для заголовка GymBro */
         .gymbro-header {
             color: firebrick;
             font-family: 'Montserrat', sans-serif;
@@ -60,7 +58,6 @@
             margin-bottom: 20px;
         }
 
-        /* Весы */
         .scale-container {
             display: flex;
             justify-content: center;
@@ -117,7 +114,6 @@
             text-shadow: 0 0 5px rgba(0, 200, 255, 0.5);
         }
 
-        /* Убираем стрелки у number input */
         .weight-input::-webkit-outer-spin-button,
         .weight-input::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -173,7 +169,6 @@
             font-weight: 300;
         }
 
-        /* Сообщения об ошибках */
         .error-message {
             color: #dc143c;
             font-size: 1.5rem;
@@ -189,7 +184,6 @@
     <h2 class="gymbro-header">GymBro</h2>
     <hr class="divider"/>
 
-    <!-- Сообщение для первого ввода веса -->
     <div th:if="${isFirst}" style="text-align: center; margin-bottom: 40px;">
         <div style="font-size: 2.2rem; color: #333; font-family: 'Montserrat', sans-serif; margin-bottom: 20px;">
             Добавьте свой первый вес
@@ -199,7 +193,6 @@
         </div>
     </div>
 
-    <!-- Весы -->
     <div class="scale-container">
         <form th:action="@{/weight/add}" th:object="${weight}" method="post" class="scale-body">
             <div class="scale-display">
@@ -219,7 +212,6 @@
 
             <div class="scale-brand">GymBro</div>
 
-            <!-- Сообщения об ошибках -->
             <div th:if="${#fields.hasErrors('personWeight')}" class="error-message">
                 <span th:errors="*{personWeight}"></span>
             </div>
@@ -228,7 +220,6 @@
 
     <hr class="divider"/>
 
-    <!-- Кнопка назад -->
     <div style="text-align: center; margin-top: 40px;">
         <a th:if="${isFirst}" th:href="@{/menu}">
             <button class="btn" type="button">Назад</button>
@@ -241,12 +232,10 @@
 </div>
 
 <script>
-    // Автофокус на поле ввода при загрузке
     document.addEventListener('DOMContentLoaded', function() {
         const weightInput = document.querySelector('.weight-input');
         weightInput.focus();
 
-        // Выделяем весь текст при фокусе
         weightInput.addEventListener('focus', function() {
             this.select();
         });

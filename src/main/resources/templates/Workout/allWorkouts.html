@@ -6,29 +6,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
         body {
-            font-size: 32px; /* 16px × 2 = 32px */
+            font-size: 32px;
             line-height: 1.5;
             margin: 0;
-            padding: 40px 0; /* 20px × 2 */
+            padding: 40px 0;
             background: #fafafa;
             font-family: 'Roboto', sans-serif;
         }
 
         .container {
-            max-width: 1800px; /* 900px × 2 */
+            max-width: 1800px;
             margin: 0 auto;
-            padding: 0 40px; /* 20px × 2 */
+            padding: 0 40px;
         }
 
         .btn {
             background: firebrick;
             color: white;
-            padding: 24px 48px; /* 12×24 ×2 */
+            padding: 24px 48px;
             border: none;
-            border-radius: 16px; /* 8px ×2 */
-            font-size: 2rem; /* 16px ×2 = 32px */
+            border-radius: 16px;
+            font-size: 2rem;
             cursor: pointer;
             transition: all 0.3s;
             font-family: 'Montserrat', sans-serif;
@@ -36,43 +35,42 @@
 
         .btn:hover {
             background: #b22222;
-            transform: translateY(-4px); /* 2px ×2 */
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 4×8 ×2 */
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
 
         .divider {
             border: none;
-            height: 4px; /* 2px ×2 */
+            height: 4px;
             background: linear-gradient(90deg, transparent, firebrick, transparent);
-            margin: 40px auto; /* 20px ×2 */
-            max-width: 1800px; /* 900px ×2 */
+            margin: 40px auto;
+            max-width: 1800px;
         }
 
-        /* Стили для списка тренировок */
         .workout-list {
             list-style: none;
             padding: 0;
-            max-width: 1000px; /* 500px ×2 */
+            max-width: 1000px;
             margin: 0 auto;
         }
 
         .workout-item {
-            margin-bottom: 16px; /* 8px ×2 */
+            margin-bottom: 16px;
         }
 
         .workout-link {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 32px; /* 10×16 ×2 */
+            padding: 20px 32px;
             background: #fafafa;
             color: #2c2c2c;
             text-decoration: none;
-            border-radius: 12px; /* 6px ×2 */
+            border-radius: 12px;
             font-family: 'Roboto', sans-serif;
             font-weight: 500;
-            font-size: 1.75rem; /* 14px ×2 = 28px */
-            border: 2px solid #e0e0e0; /* 1px ×2 */
+            font-size: 1.75rem;
+            border: 2px solid #e0e0e0;
             transition: all 0.2s;
         }
 
@@ -80,8 +78,8 @@
             background: #f5f5f5;
             color: firebrick;
             border-color: firebrick;
-            transform: translateY(-2px); /* 1px ×2 */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 2×4 ×2 */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         .day-of-week {
@@ -109,30 +107,29 @@
             font-family: 'Montserrat', sans-serif;
             color: #333;
             text-align: center;
-            margin-bottom: 40px; /* 20px ×2 */
+            margin-bottom: 40px;
         }
 
-        /* Пагинация */
         .pagination {
-            margin: 40px 0; /* 20px ×2 */
+            margin: 40px 0;
             text-align: center;
             font-family: 'Roboto', sans-serif;
         }
 
         .pagination a, .pagination span {
             display: inline-block;
-            padding: 12px 24px; /* 6×12 ×2 */
-            margin: 0 4px; /* 2px ×2 */
-            border-radius: 8px; /* 4px ×2 */
+            padding: 12px 24px;
+            margin: 0 4px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 500;
-            font-size: 1.75rem; /* 14px ×2 = 28px */
+            font-size: 1.75rem;
         }
 
         .pagination a {
             color: firebrick;
             background: white;
-            border: 2px solid #ddd; /* 1px ×2 */
+            border: 2px solid #ddd;
         }
 
         .pagination a:hover {
@@ -143,35 +140,34 @@
         .pagination span.current {
             background: firebrick;
             color: white;
-            border: 2px solid firebrick; /* 1px ×2 */
+            border: 2px solid firebrick;
         }
 
         .add-btn {
             text-align: center;
-            margin: 40px 0; /* 20px ×2 */
+            margin: 40px 0;
         }
 
         .back-btn {
             text-align: center;
-            margin-top: 40px; /* 20px ×2 */
+            margin-top: 40px;
         }
 
         .no-data {
             text-align: center;
             font-family: 'Roboto', sans-serif;
-            font-size: 2rem; /* 16px ×2 */
+            font-size: 2rem;
             color: #666;
-            margin: 80px 0; /* 40px ×2 */
+            margin: 80px 0;
         }
 
-        /* Стили для заголовка GymBro */
         .gymbro-header {
             color: firebrick;
             font-family: 'Montserrat', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 4px; /* 2px ×2 */
+            letter-spacing: 4px;
             text-align: center;
-            font-size: 2.5rem; /* 20px ×2 = 40px */
+            font-size: 2.5rem;
             margin-bottom: 20px;
         }
     </style>

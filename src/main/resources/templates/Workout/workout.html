@@ -6,29 +6,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
         body {
-            font-size: 32px; /* 16px × 2 = 32px */
+            font-size: 32px;
             line-height: 1.5;
             margin: 0;
-            padding: 50px 0; /* 20px × 2.5 */
+            padding: 50px 0;
             background: #fafafa;
             font-family: 'Roboto', sans-serif;
         }
 
         .container {
-            max-width: 1800px; /* 900px × 2 */
+            max-width: 1800px;
             margin: 0 auto;
-            padding: 0 40px; /* 20px × 2 */
+            padding: 0 40px;
         }
 
         .btn {
             background: firebrick;
             color: white;
-            padding: 24px 48px; /* 12×24 ×2 */
+            padding: 24px 48px;
             border: none;
-            border-radius: 16px; /* 8px ×2 */
-            font-size: 2rem; /* 16px ×2 = 32px */
+            border-radius: 16px;
+            font-size: 2rem;
             cursor: pointer;
             transition: all 0.3s;
             font-family: 'Montserrat', sans-serif;
@@ -36,17 +35,17 @@
 
         .btn:hover {
             background: #b22222;
-            transform: translateY(-4px); /* 2px ×2 */
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 4×8 ×2 */
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
 
         .btn-danger {
             background: #6c757d;
             color: white;
-            padding: 16px 32px; /* 8×16 ×2 */
+            padding: 16px 32px;
             border: none;
-            border-radius: 12px; /* 6px ×2 */
-            font-size: 1.5rem; /* 12px ×2 = 24px */
+            border-radius: 12px;
+            font-size: 1.5rem;
             cursor: pointer;
             transition: all 0.3s;
             font-family: 'Roboto', sans-serif;
@@ -54,49 +53,48 @@
 
         .btn-danger:hover {
             background: #8B0000;
-            transform: translateY(-2px); /* 1px ×2 */
+            transform: translateY(-2px);
         }
 
         .divider {
             border: none;
-            height: 4px; /* 2px ×2 */
+            height: 4px;
             background: linear-gradient(90deg, transparent, firebrick, transparent);
-            margin: 40px auto; /* 20px ×2 */
-            max-width: 1000px; /* 500px ×2 */
+            margin: 40px auto;
+            max-width: 1000px;
         }
 
         .table-spacing {
-            margin-bottom: 40px; /* 20px ×2 */
+            margin-bottom: 40px;
         }
 
-        /* Таблица */
         table {
             border-collapse: collapse;
             width: auto;
             margin: 0 auto;
             font-family: 'Roboto', sans-serif;
             font-weight: 400;
-            border-radius: 12px; /* 6px ×2 */
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* 2×6 ×2 */
-            min-width: 760px; /* 380px ×2 */
-            font-size: 1.625rem; /* 13px ×2 = 26px */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            min-width: 760px;
+            font-size: 1.625rem;
             background: #fafafa;
-            max-width: 1000px; /* 500px ×2 */
+            max-width: 1000px;
         }
 
         th {
             background: #f0f0f0;
             color: #333;
-            padding: 20px 24px; /* 10×12 ×2 */
+            padding: 20px 24px;
             font-weight: 500;
-            border-bottom: 4px solid #666; /* 2px ×2 */
+            border-bottom: 4px solid #666;
             text-align: center;
         }
 
         td {
-            padding: 16px 24px; /* 8×12 ×2 */
-            border-bottom: 2px solid #e0e0e0; /* 1px ×2 */
+            padding: 16px 24px;
+            border-bottom: 2px solid #e0e0e0;
             background: #fafafa;
         }
 
@@ -104,12 +102,10 @@
             background: #f5f5f5;
         }
 
-        /* Выравнивание по правому краю для веса и дельты */
         .right-align {
             text-align: right;
         }
 
-        /* Стили для изменений */
         .positive {
             color: #006400;
             font-weight: 500;
@@ -125,7 +121,6 @@
             color: #2c2c2c;
         }
 
-        /* Выравнивание повторов */
         .reps-container {
             display: flex;
             justify-content: space-between;
@@ -140,20 +135,18 @@
 
         .reps-change {
             text-align: right;
-            min-width: 80px; /* 40px ×2 */
+            min-width: 80px;
         }
 
-        /* Центрирование когда нет изменений */
         .centered {
             text-align: center;
         }
 
-        /* Строка с заметками */
         .notes-row td {
             background: #f8f9fa !important;
-            border-top: 4px solid #666; /* 2px ×2 */
-            padding: 24px; /* 12px ×2 */
-            max-width: 1000px; /* 500px ×2 */
+            border-top: 4px solid #666;
+            padding: 24px;
+            max-width: 1000px;
             word-wrap: break-word;
         }
 
@@ -161,36 +154,36 @@
             font-weight: 500;
             color: #333;
             font-family: 'Roboto', sans-serif;
-            font-size: 1.625rem; /* 13px ×2 = 26px */
+            font-size: 1.625rem;
         }
 
         .notes-text {
             color: #555;
             line-height: 1.4;
-            font-size: 1.5rem; /* 12px ×2 = 24px */
+            font-size: 1.5rem;
             font-style: italic;
-            margin-top: 8px; /* 4px ×2 */
+            margin-top: 8px;
         }
 
         .workout-header {
             text-align: center;
-            margin-bottom: 50px; /* 25px ×2 */
+            margin-bottom: 50px;
         }
 
         .action-buttons {
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            margin: 40px 0; /* 20px ×2 */
-            max-width: 1000px; /* 500px ×2 */
+            margin: 40px 0;
+            max-width: 1000px;
             margin-left: auto;
             margin-right: auto;
-            gap: 12px; /* 6px ×2 */
+            gap: 12px;
         }
 
         .back-button {
             text-align: center;
-            margin-top: 40px; /* 20px ×2 */
+            margin-top: 40px;
         }
 
         .exercise-name {
@@ -199,15 +192,14 @@
             text-align: left;
         }
 
-        /* Стили для заголовка GymBro */
         .gymbro-header {
             color: firebrick;
             font-family: 'Montserrat', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 4px; /* 2px ×2 */
+            letter-spacing: 4px;
             text-align: center;
-            font-size: 2.5rem; /* 20px ×2 = 40px */
-            margin-bottom: 20px; /* 10px ×2 */
+            font-size: 2.5rem;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -239,16 +231,13 @@
                 <th>Повторы</th>
             </tr>
 
-            <!-- Упражнения -->
             <tr th:each="we, iterStat : ${workoutExercises}">
                 <td>
                     <div class="exercise-name" th:text="${we.getExercise().getName()}"></div>
                 </td>
 
-                <!-- Вес по правому краю -->
                 <td class="right-align data-value" th:text="${we.getWorkWeight()}"></td>
 
-                <!-- Дельта веса по правому краю -->
                 <td th:classappend="${weightsChange[iterStat.index] == 0} ? 'centered' : 'right-align'">
                     <span th:if="${weightsChange[iterStat.index] != 0}">
                         <span th:if="${weightsChange[iterStat.index] > 0}" class="positive">
@@ -261,7 +250,6 @@
                     <span th:unless="${weightsChange[iterStat.index] != 0}" class="data-value">-</span>
                 </td>
 
-                <!-- Повторы с раздельным выравниванием -->
                 <td>
                     <div class="reps-container">
                         <span class="reps-count data-value" th:text="${we.getReps()}"></span>
@@ -278,7 +266,6 @@
                 </td>
             </tr>
 
-            <!-- Заметки -->
             <tr th:if="${workout.getNotes()}" class="notes-row">
                 <td colspan="4">
                     <div class="notes-label">Заметки:</div>
