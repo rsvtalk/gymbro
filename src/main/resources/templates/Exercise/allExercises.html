@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Библиотека упражнений</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
+        body {
+            font-size: 32px; /* 16px × 2 = 32px */
+            line-height: 1.5;
+            margin: 0;
+            padding: 40px 0; /* 20px × 2 */
+            background: #fafafa;
+        }
+
+        .container {
+            max-width: 1800px; /* 900px × 2 */
+            margin: 0 auto;
+            padding: 0 40px; /* 20px × 2 */
+        }
+
+        .btn {
+            background: firebrick;
+            color: white;
+            padding: 24px 48px; /* 12×24 ×2 */
+            border: none;
+            border-radius: 16px; /* 8px ×2 */
+            font-size: 2rem; /* 16px ×2 */
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn:hover {
+            background: #b22222;
+            transform: translateY(-4px); /* 2px ×2 */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 4×8 ×2 */
+        }
+
+        .divider {
+            border: none;
+            height: 4px; /* 2px ×2 */
+            background: linear-gradient(90deg, transparent, firebrick, transparent);
+            margin: 60px auto; /* 30px ×2 */
+            max-width: 1800px; /* 900px ×2 */
+        }
+
+        .exercise-list {
+            list-style: none;
+            padding: 0;
+            max-width: 800px; /* 400px ×2 */
+            margin: 0 auto;
+        }
+
+        .exercise-item {
+            margin-bottom: 16px; /* 8px ×2 */
+            text-align: left;
+        }
+
+        .exercise-link {
+            display: block;
+            padding: 16px 32px; /* 8×16 ×2 */
+            background: #fafafa;
+            color: #2c2c2c;
+            text-decoration: none;
+            border-radius: 12px; /* 6px ×2 */
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 1.4rem; /* 14px ×2 */
+            border: 2px solid #e0e0e0; /* 1px ×2 */
+            transition: all 0.2s;
+        }
+
+        .exercise-link:hover {
+            background: #f5f5f5;
+            color: firebrick;
+            border-color: firebrick;
+            transform: translateY(-2px); /* 1px ×2 */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 2×4 ×2 */
+        }
+
+        .no-data {
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 2rem; /* 16px ×2 */
+            color: #666;
+            margin: 80px 0; /* 40px ×2 */
+        }
+
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px; /* 20px ×2 */
+            font-size: 2rem;
+        }
+
+        h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px; /* 20px ×2 */
+            margin-top: 60px; /* 30px ×2 */
+            font-size: 1.8rem;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 40px 0; /* 20px ×2 */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h2 style="color: firebrick; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 4px; text-align: center; font-size: 2.4rem; margin-bottom: 20px;">GymBro</h2>
+    <hr class="divider"/>
+
+    <div class="button-container">
+        <a th:href="@{/exercise/add}"><button class="btn" type="button">+ Новое упражнение +</button></a>
+    </div>
+
+    <h4>Мои упражнения</h4>
+
+    <div th:if="${customExercises.isEmpty()}">
+        <p class="no-data">У вас пока нет собственных упражнений</p>
+    </div>
+
+    <div th:unless="${customExercises.isEmpty()}">
+        <ul class="exercise-list">
+            <li class="exercise-item" th:each="exercise : ${customExercises}">
+                <a class="exercise-link" th:href="@{/exercise/{id}(id=${exercise.getId()})}" th:text="${exercise.getName()}"></a>
+            </li>
+        </ul>
+    </div>
+
+    <h4>Базовые упражнения</h4>
+
+    <div th:if="${systemExercises.isEmpty()}">
+        <p class="no-data">Нет доступных базовых упражнений</p>
+    </div>
+
+    <div th:unless="${systemExercises.isEmpty()}">
+        <ul class="exercise-list">
+            <li class="exercise-item" th:each="exercise : ${systemExercises}">
+                <a class="exercise-link" th:href="@{/exercise/{id}(id=${exercise.getId()})}" th:text="${exercise.getName()}"></a>
+            </li>
+        </ul>
+    </div>
+
+    <hr class="divider"/>
+    <div style="text-align: center;">
+        <a th:href="@{/menu}"><button class="btn" type="button">Назад</button></a>
+    </div>
+
+</div>
+</body>
+</html>

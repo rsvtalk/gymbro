@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вся история веса</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
+        body {
+            font-size: 32px;
+            line-height: 1.5;
+            margin: 0;
+            padding: 50px 0;
+            background: #fafafa;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .btn {
+            background: firebrick;
+            color: white;
+            padding: 24px 48px;
+            border: none;
+            border-radius: 16px;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn:hover {
+            background: #b22222;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .divider {
+            border: none;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, firebrick, transparent);
+            margin: 40px auto;
+            max-width: 1000px;
+        }
+
+        .gymbro-header {
+            color: firebrick;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .table-spacing {
+            margin-bottom: 40px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 0 auto;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-size: 1.625rem;
+            background: #fafafa;
+            max-width: 1000px;
+        }
+
+        th {
+            background: #f0f0f0;
+            color: #333;
+            padding: 20px 24px;
+            font-weight: 500;
+            border-bottom: 4px solid #666;
+            text-align: center;
+        }
+
+        td {
+            padding: 16px 24px;
+            border-bottom: 2px solid #e0e0e0;
+            background: #fafafa;
+            text-align: center;
+        }
+
+        tr:hover td {
+            background: #f5f5f5;
+        }
+
+        .data-value {
+            font-weight: 500;
+            color: #2c2c2c;
+        }
+
+        .weight-change-positive {
+            color: #006400;
+            font-weight: 500;
+        }
+
+        .weight-change-negative {
+            color: #8B0000;
+            font-weight: 500;
+        }
+
+        /* ПАГИНАЦИЯ ИЗ ТВОЕГО ПРИМЕРА */
+        .pagination {
+            margin: 40px 0;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .pagination a, .pagination span {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 0 4px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.75rem;
+        }
+
+        .pagination a {
+            color: firebrick;
+            background: white;
+            border: 2px solid #ddd;
+        }
+
+        .pagination a:hover {
+            background: #f8f9fa;
+            border-color: firebrick;
+        }
+
+        .pagination span.current {
+            background: firebrick;
+            color: white;
+            border: 2px solid firebrick;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h2 class="gymbro-header">GymBro</h2>
+    <hr class="divider"/>
+
+    <div class="table-spacing">
+        <h3 style="font-family: 'Montserrat', sans-serif; color: #333; text-align: center; margin-bottom: 30px; font-size: 2rem;">
+            Вся история веса
+        </h3>
+        <table>
+            <tr>
+                <th>Дата</th>
+                <th th:text="'Вес (' + ${weightUnit.shortName} + ')'">Вес (кг)</th>
+                <th>Изменение</th>
+            </tr>
+            <tr th:each="weight, iterStat : ${weights}">
+                <td th:text="${#temporals.format(weight.weightDate.toLocalDateTime().toLocalDate(), 'dd.MM.yyyy')}">15.12.2024</td>
+                <td class="data-value" th:text="${#numbers.formatDecimal(weight.personWeight, 1, 1)}">75.0</td>
+                <td>
+                    <span th:if="${iterStat.index < weightDifference.size()}">
+                        <span th:if="${weightDifference[iterStat.index] != 0}">
+                            <span th:class="${weightDifference[iterStat.index] > 0 ? 'weight-change-positive' : 'weight-change-negative'}">
+                                <span th:if="${weightDifference[iterStat.index] > 0}">+</span>
+                                <span th:text="${#numbers.formatDecimal(weightDifference[iterStat.index], 1, 1)}">0.0</span>
+                            </span>
+                        </span>
+                        <span th:if="${weightDifference[iterStat.index] == 0}">-</span>
+                    </span>
+                    <span th:if="${iterStat.index >= weightDifference.size()}">-</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ПАГИНАЦИЯ ИЗ ТВОЕГО ПРИМЕРА -->
+    <div th:if="${weights.totalPages > 1}" class="pagination">
+        <span th:each="i : ${#numbers.sequence(0, weights.totalPages - 1)}">
+            <span th:if="${i == weights.number}" class="current">[[${i + 1}]]</span>
+            <a th:unless="${i == weights.number}"
+               th:href="@{/weight/all(page=${i}, size=${weights.size})}">[[${i + 1}]]</a>
+        </span>
+    </div>
+
+    <hr class="divider"/>
+
+    <!-- Кнопка назад -->
+    <div style="text-align: center; margin-top: 40px;">
+        <a th:href="@{/weight}"><button class="btn" type="button">Назад</button></a>
+    </div>
+
+</div>
+</body>
+</html>

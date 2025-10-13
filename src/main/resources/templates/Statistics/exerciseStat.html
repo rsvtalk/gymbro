@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${exercise.name}"></title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
+        body {
+            font-size: 32px; /* 16px × 2 = 32px */
+            line-height: 1.5;
+            margin: 0;
+            padding: 40px 0; /* 20px × 2 */
+            background: #fafafa;
+        }
+
+        .container {
+            max-width: 1800px; /* 900px × 2 */
+            margin: 0 auto;
+            padding: 0 40px; /* 20px × 2 */
+        }
+
+        .btn {
+            background: firebrick;
+            color: white;
+            padding: 24px 48px; /* 12×24 ×2 */
+            border: none;
+            border-radius: 16px; /* 8px ×2 */
+            font-size: 2rem; /* 1rem ×2 */
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn:hover {
+            background: #b22222;
+            transform: translateY(-4px); /* 2px ×2 */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 4×8 ×2 */
+        }
+
+        .divider {
+            border: none;
+            height: 4px; /* 2px ×2 */
+            background: linear-gradient(90deg, transparent, firebrick, transparent);
+            margin: 40px auto; /* 20px ×2 */
+            max-width: 1000px; /* 500px ×2 */
+        }
+
+        .table-spacing {
+            margin-bottom: 40px; /* 20px ×2 */
+        }
+
+        /* Таблица - всё ×2 */
+        table {
+            border-collapse: collapse;
+            width: auto;
+            margin: 0 auto;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            border-radius: 12px; /* 6px ×2 */
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* 2×6 ×2 */
+            min-width: 800px; /* 400px ×2 */
+            font-size: 1.8rem; /* 0.9rem ×2 */
+            background: #fafafa;
+            max-width: 90%;
+        }
+
+        th {
+            background: #f0f0f0;
+            color: #333;
+            padding: 24px 30px; /* 12×15 ×2 */
+            font-weight: 500;
+            border-bottom: 4px solid #666; /* 2px ×2 */
+            text-align: center;
+            font-size: 1.9rem; /* 0.95rem ×2 */
+        }
+
+        td {
+            padding: 20px 30px; /* 10×15 ×2 */
+            border-bottom: 2px solid #e0e0e0; /* 1px ×2 */
+            background: #fafafa;
+            font-size: 1.8rem; /* 0.9rem ×2 */
+        }
+
+        tr:hover td {
+            background: #f5f5f5;
+        }
+
+        .right-align {
+            text-align: right;
+        }
+
+        .positive {
+            color: #006400;
+            font-weight: 500;
+        }
+
+        .negative {
+            color: #8B0000;
+            font-weight: 500;
+        }
+
+        .data-value {
+            font-weight: 500;
+            color: #2c2c2c;
+        }
+
+        .reps-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .reps-count {
+            text-align: center;
+            flex: 1;
+        }
+
+        .reps-change {
+            text-align: right;
+            min-width: 80px; /* 40px ×2 */
+        }
+
+        .centered {
+            text-align: center;
+        }
+
+        .date-value {
+            font-weight: 500;
+            color: #2c2c2c;
+            text-align: left;
+        }
+
+        .back-button {
+            text-align: center;
+            margin-top: 40px; /* 20px ×2 */
+        }
+
+        .pagination {
+            margin: 40px 0; /* 20px ×2 */
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .pagination a, .pagination span {
+            display: inline-block;
+            padding: 16px 24px; /* 8×12 ×2 */
+            margin: 0 4px; /* 2px ×2 */
+            border-radius: 8px; /* 4px ×2 */
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.8rem; /* 0.9rem ×2 */
+        }
+
+        .pagination a {
+            color: firebrick;
+            background: white;
+            border: 2px solid #ddd; /* 1px ×2 */
+        }
+
+        .pagination a:hover {
+            background: #f8f9fa;
+            border-color: firebrick;
+        }
+
+        .pagination span.current {
+            background: firebrick;
+            color: white;
+            border: 2px solid firebrick; /* 1px ×2 */
+        }
+
+        th.right-align {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h2 style="color: firebrick; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 4px; text-align: center; margin-bottom: 20px; font-size: 3rem;">GymBro</h2>
+    <hr class="divider"/>
+
+    <div th:if="${exerciseHistory.isEmpty()}">
+        <p>Нет данных по этому упражнению</p>
+    </div>
+
+    <h3 th:text="${exercise.name}" style="font-family: 'Montserrat', sans-serif; color: #333; text-align: center; margin-bottom: 40px; font-size: 2.6rem;"></h3>
+
+    <div th:unless="${exerciseHistory.isEmpty()}" class="table-spacing">
+        <table>
+            <tr>
+                <th>Дата</th>
+                <th class="right-align">
+                    Вес<br>
+                    <span th:if="${weightUnit == T(GymBro.Model.enums.WeightUnit).KG}"
+                          th:text="'(' + ${T(GymBro.Model.enums.WeightUnit).KG.shortName} + ')'">(кг)</span>
+                    <span th:unless="${weightUnit == T(GymBro.Model.enums.WeightUnit).KG}"
+                          th:text="'(' + ${T(GymBro.Model.enums.WeightUnit).LB.shortName} + ')'">(lbs)</span>
+                </th>
+                <th class="right-align">Δ Веса</th>
+                <th>Повторы</th>
+            </tr>
+
+            <!-- Строки с датами вместо упражнений -->
+            <tr th:each="we, iterStat : ${exerciseHistory.content}">
+                <!-- ДАТА -->
+                <td>
+                    <div class="date-value" th:text="${#temporals.format(we.workout.date.toLocalDateTime(), 'dd.MM.yyyy')} + ' (' + ${#strings.toLowerCase(#temporals.format(we.workout.date.toLocalDateTime(), 'EEEE'))} + ')'"></div>
+                </td>
+
+                <!-- ВЕС -->
+                <td class="right-align data-value" th:text="${we.workWeight}"></td>
+
+                <!-- ДЕЛЬТА ВЕСА -->
+                <td th:classappend="${weightChanges[iterStat.index] == 0} ? 'centered' : 'right-align'">
+                    <span th:with="fullIndex=${exerciseHistory.number * exerciseHistory.size + iterStat.index}">
+                        <span th:if="${weightChanges[fullIndex] != 0}">
+                            <span th:if="${weightChanges[fullIndex] > 0}" class="positive">
+                                +[[${weightChanges[fullIndex]}]]%
+                            </span>
+                            <span th:unless="${weightChanges[fullIndex] > 0}" class="negative">
+                                [[${weightChanges[fullIndex]}]]%
+                            </span>
+                        </span>
+                        <span th:unless="${weightChanges[fullIndex] != 0}" class="data-value">-</span>
+                    </span>
+                </td>
+
+                <!-- ПОВТОРЫ -->
+                <td>
+                    <div class="reps-container">
+                        <span class="reps-count data-value" th:text="${we.reps}"></span>
+                        <span th:with="fullIndex=${exerciseHistory.number * exerciseHistory.size + iterStat.index}" class="reps-change">
+                            <span th:if="${repsChanges[fullIndex] != 0}">
+                                <span th:if="${repsChanges[fullIndex] > 0}" class="positive">
+                                    +[[${repsChanges[fullIndex]}]]
+                                </span>
+                                <span th:unless="${repsChanges[fullIndex] > 0}" class="negative">
+                                    [[${repsChanges[fullIndex]}]]
+                                </span>
+                            </span>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ПАГИНАЦИЯ -->
+    <div th:if="${exerciseHistory.totalPages > 1}" class="pagination">
+        <span th:each="i : ${#numbers.sequence(0, exerciseHistory.totalPages - 1)}">
+            <span th:if="${i == exerciseHistory.number}" class="current">[[${i + 1}]]</span>
+            <a th:unless="${i == exerciseHistory.number}"
+               th:href="@{/statistic/{id}(id=${exercise.id}, page=${i}, size=${exerciseHistory.size})}">[[${i + 1}]]</a>
+        </span>
+    </div>
+
+    <hr class="divider"/>
+    <div class="back-button">
+        <a th:href="@{/statistic}"><button class="btn" type="button">Назад</button></a>
+    </div>
+
+</div>
+</body>
+</html>

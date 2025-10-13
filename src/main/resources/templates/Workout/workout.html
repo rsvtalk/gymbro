@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${workout.getMuscleGroup().getRussianDayName()}"></title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
+        body {
+            font-size: 32px; /* 16px × 2 = 32px */
+            line-height: 1.5;
+            margin: 0;
+            padding: 50px 0; /* 20px × 2.5 */
+            background: #fafafa;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            max-width: 1800px; /* 900px × 2 */
+            margin: 0 auto;
+            padding: 0 40px; /* 20px × 2 */
+        }
+
+        .btn {
+            background: firebrick;
+            color: white;
+            padding: 24px 48px; /* 12×24 ×2 */
+            border: none;
+            border-radius: 16px; /* 8px ×2 */
+            font-size: 2rem; /* 16px ×2 = 32px */
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn:hover {
+            background: #b22222;
+            transform: translateY(-4px); /* 2px ×2 */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 4×8 ×2 */
+        }
+
+        .btn-danger {
+            background: #6c757d;
+            color: white;
+            padding: 16px 32px; /* 8×16 ×2 */
+            border: none;
+            border-radius: 12px; /* 6px ×2 */
+            font-size: 1.5rem; /* 12px ×2 = 24px */
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .btn-danger:hover {
+            background: #8B0000;
+            transform: translateY(-2px); /* 1px ×2 */
+        }
+
+        .divider {
+            border: none;
+            height: 4px; /* 2px ×2 */
+            background: linear-gradient(90deg, transparent, firebrick, transparent);
+            margin: 40px auto; /* 20px ×2 */
+            max-width: 1000px; /* 500px ×2 */
+        }
+
+        .table-spacing {
+            margin-bottom: 40px; /* 20px ×2 */
+        }
+
+        /* Таблица */
+        table {
+            border-collapse: collapse;
+            width: auto;
+            margin: 0 auto;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            border-radius: 12px; /* 6px ×2 */
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* 2×6 ×2 */
+            min-width: 760px; /* 380px ×2 */
+            font-size: 1.625rem; /* 13px ×2 = 26px */
+            background: #fafafa;
+            max-width: 1000px; /* 500px ×2 */
+        }
+
+        th {
+            background: #f0f0f0;
+            color: #333;
+            padding: 20px 24px; /* 10×12 ×2 */
+            font-weight: 500;
+            border-bottom: 4px solid #666; /* 2px ×2 */
+            text-align: center;
+        }
+
+        td {
+            padding: 16px 24px; /* 8×12 ×2 */
+            border-bottom: 2px solid #e0e0e0; /* 1px ×2 */
+            background: #fafafa;
+        }
+
+        tr:hover td {
+            background: #f5f5f5;
+        }
+
+        /* Выравнивание по правому краю для веса и дельты */
+        .right-align {
+            text-align: right;
+        }
+
+        /* Стили для изменений */
+        .positive {
+            color: #006400;
+            font-weight: 500;
+        }
+
+        .negative {
+            color: #8B0000;
+            font-weight: 500;
+        }
+
+        .data-value {
+            font-weight: 500;
+            color: #2c2c2c;
+        }
+
+        /* Выравнивание повторов */
+        .reps-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .reps-count {
+            text-align: center;
+            flex: 1;
+        }
+
+        .reps-change {
+            text-align: right;
+            min-width: 80px; /* 40px ×2 */
+        }
+
+        /* Центрирование когда нет изменений */
+        .centered {
+            text-align: center;
+        }
+
+        /* Строка с заметками */
+        .notes-row td {
+            background: #f8f9fa !important;
+            border-top: 4px solid #666; /* 2px ×2 */
+            padding: 24px; /* 12px ×2 */
+            max-width: 1000px; /* 500px ×2 */
+            word-wrap: break-word;
+        }
+
+        .notes-label {
+            font-weight: 500;
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.625rem; /* 13px ×2 = 26px */
+        }
+
+        .notes-text {
+            color: #555;
+            line-height: 1.4;
+            font-size: 1.5rem; /* 12px ×2 = 24px */
+            font-style: italic;
+            margin-top: 8px; /* 4px ×2 */
+        }
+
+        .workout-header {
+            text-align: center;
+            margin-bottom: 50px; /* 25px ×2 */
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin: 40px 0; /* 20px ×2 */
+            max-width: 1000px; /* 500px ×2 */
+            margin-left: auto;
+            margin-right: auto;
+            gap: 12px; /* 6px ×2 */
+        }
+
+        .back-button {
+            text-align: center;
+            margin-top: 40px; /* 20px ×2 */
+        }
+
+        .exercise-name {
+            font-weight: 500;
+            color: #2c2c2c;
+            text-align: left;
+        }
+
+        /* Стили для заголовка GymBro */
+        .gymbro-header {
+            color: firebrick;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 4px; /* 2px ×2 */
+            text-align: center;
+            font-size: 2.5rem; /* 20px ×2 = 40px */
+            margin-bottom: 20px; /* 10px ×2 */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h2 class="gymbro-header">GymBro</h2>
+    <hr class="divider"/>
+
+    <div class="workout-header">
+        <h3 style="font-family: 'Montserrat', sans-serif; color: #333; margin-bottom: 10px; font-size: 2rem;"
+            th:text="${workout.getMuscleGroup().getRussianDayName()}"></h3>
+        <p style="color: #666; font-family: 'Roboto', sans-serif; text-transform: capitalize; font-size: 1.75rem;"
+           th:text="${#temporals.format(workout.date.toLocalDateTime(), 'EEEE dd.MM.yyyy')}"></p>
+    </div>
+
+    <div class="table-spacing">
+        <table>
+            <tr>
+                <th>Упражнение</th>
+                <th class="right-align">
+                    Вес
+                    <span th:if="${weightUnit == T(GymBro.Model.enums.WeightUnit).KG}"
+                          th:text="'(' + ${T(GymBro.Model.enums.WeightUnit).KG.shortName} + ')'">(кг)</span>
+                    <span th:unless="${weightUnit == T(GymBro.Model.enums.WeightUnit).KG}"
+                          th:text="'(' + ${T(GymBro.Model.enums.WeightUnit).LB.shortName} + ')'">(lbs)</span>
+                </th>
+                <th>Δ Веса</th>
+                <th>Повторы</th>
+            </tr>
+
+            <!-- Упражнения -->
+            <tr th:each="we, iterStat : ${workoutExercises}">
+                <td>
+                    <div class="exercise-name" th:text="${we.getExercise().getName()}"></div>
+                </td>
+
+                <!-- Вес по правому краю -->
+                <td class="right-align data-value" th:text="${we.getWorkWeight()}"></td>
+
+                <!-- Дельта веса по правому краю -->
+                <td th:classappend="${weightsChange[iterStat.index] == 0} ? 'centered' : 'right-align'">
+                    <span th:if="${weightsChange[iterStat.index] != 0}">
+                        <span th:if="${weightsChange[iterStat.index] > 0}" class="positive">
+                            +[[${weightsChange[iterStat.index]}]]%
+                        </span>
+                        <span th:unless="${weightsChange[iterStat.index] > 0}" class="negative">
+                            [[${weightsChange[iterStat.index]}]]%
+                        </span>
+                    </span>
+                    <span th:unless="${weightsChange[iterStat.index] != 0}" class="data-value">-</span>
+                </td>
+
+                <!-- Повторы с раздельным выравниванием -->
+                <td>
+                    <div class="reps-container">
+                        <span class="reps-count data-value" th:text="${we.getReps()}"></span>
+                        <span th:if="${repsChange[iterStat.index] != 0}" class="reps-change">
+                            <span th:if="${repsChange[iterStat.index] > 0}" class="positive">
+                                +[[${repsChange[iterStat.index]}]]
+                            </span>
+                            <span th:unless="${repsChange[iterStat.index] > 0}" class="negative">
+                                [[${repsChange[iterStat.index]}]]
+                            </span>
+                        </span>
+                        <span th:unless="${repsChange[iterStat.index] != 0}" class="reps-change"></span>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Заметки -->
+            <tr th:if="${workout.getNotes()}" class="notes-row">
+                <td colspan="4">
+                    <div class="notes-label">Заметки:</div>
+                    <div class="notes-text" th:text="${workout.getNotes()}"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="action-buttons">
+        <form th:action="@{/workout/{id}(id=${workout.id})}" method="post" style="display: inline-block;">
+            <input type="hidden" name="_method" value="delete">
+            <button class="btn-danger" type="submit">Удалить тренировку</button>
+        </form>
+    </div>
+
+    <hr class="divider"/>
+    <div class="back-button">
+        <a th:href="@{/workout}"><button class="btn" type="button">Назад</button></a>
+    </div>
+
+</div>
+</body>
+</html>

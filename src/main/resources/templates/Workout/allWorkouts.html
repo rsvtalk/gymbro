@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои тренировки</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
+        body {
+            font-size: 32px; /* 16px × 2 = 32px */
+            line-height: 1.5;
+            margin: 0;
+            padding: 40px 0; /* 20px × 2 */
+            background: #fafafa;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            max-width: 1800px; /* 900px × 2 */
+            margin: 0 auto;
+            padding: 0 40px; /* 20px × 2 */
+        }
+
+        .btn {
+            background: firebrick;
+            color: white;
+            padding: 24px 48px; /* 12×24 ×2 */
+            border: none;
+            border-radius: 16px; /* 8px ×2 */
+            font-size: 2rem; /* 16px ×2 = 32px */
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn:hover {
+            background: #b22222;
+            transform: translateY(-4px); /* 2px ×2 */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 4×8 ×2 */
+        }
+
+        .divider {
+            border: none;
+            height: 4px; /* 2px ×2 */
+            background: linear-gradient(90deg, transparent, firebrick, transparent);
+            margin: 40px auto; /* 20px ×2 */
+            max-width: 1800px; /* 900px ×2 */
+        }
+
+        /* Стили для списка тренировок */
+        .workout-list {
+            list-style: none;
+            padding: 0;
+            max-width: 1000px; /* 500px ×2 */
+            margin: 0 auto;
+        }
+
+        .workout-item {
+            margin-bottom: 16px; /* 8px ×2 */
+        }
+
+        .workout-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 32px; /* 10×16 ×2 */
+            background: #fafafa;
+            color: #2c2c2c;
+            text-decoration: none;
+            border-radius: 12px; /* 6px ×2 */
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 1.75rem; /* 14px ×2 = 28px */
+            border: 2px solid #e0e0e0; /* 1px ×2 */
+            transition: all 0.2s;
+        }
+
+        .workout-link:hover {
+            background: #f5f5f5;
+            color: firebrick;
+            border-color: firebrick;
+            transform: translateY(-2px); /* 1px ×2 */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 2×4 ×2 */
+        }
+
+        .day-of-week {
+            flex: 1;
+            text-align: left;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .workout-date {
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+            color: #2c2c2c;
+        }
+
+        .muscle-group {
+            flex: 1;
+            text-align: right;
+            font-weight: 500;
+            color: firebrick;
+        }
+
+        h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px; /* 20px ×2 */
+        }
+
+        /* Пагинация */
+        .pagination {
+            margin: 40px 0; /* 20px ×2 */
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .pagination a, .pagination span {
+            display: inline-block;
+            padding: 12px 24px; /* 6×12 ×2 */
+            margin: 0 4px; /* 2px ×2 */
+            border-radius: 8px; /* 4px ×2 */
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.75rem; /* 14px ×2 = 28px */
+        }
+
+        .pagination a {
+            color: firebrick;
+            background: white;
+            border: 2px solid #ddd; /* 1px ×2 */
+        }
+
+        .pagination a:hover {
+            background: #f8f9fa;
+            border-color: firebrick;
+        }
+
+        .pagination span.current {
+            background: firebrick;
+            color: white;
+            border: 2px solid firebrick; /* 1px ×2 */
+        }
+
+        .add-btn {
+            text-align: center;
+            margin: 40px 0; /* 20px ×2 */
+        }
+
+        .back-btn {
+            text-align: center;
+            margin-top: 40px; /* 20px ×2 */
+        }
+
+        .no-data {
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 2rem; /* 16px ×2 */
+            color: #666;
+            margin: 80px 0; /* 40px ×2 */
+        }
+
+        /* Стили для заголовка GymBro */
+        .gymbro-header {
+            color: firebrick;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 4px; /* 2px ×2 */
+            text-align: center;
+            font-size: 2.5rem; /* 20px ×2 = 40px */
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h2 class="gymbro-header">GymBro</h2>
+    <hr class="divider"/>
+
+    <div class="add-btn">
+        <a th:href="@{/workout/add}"><button class="btn" type="button">+ Новая тренировка +</button></a>
+    </div>
+
+    <div th:if="${workouts.isEmpty()}">
+        <p class="no-data">Вы еще не добавили ни одной тренировки :P</p>
+    </div>
+    <div th:unless="${workouts.isEmpty()}">
+        <h3>Список моих тренировок</h3>
+    </div>
+
+    <ul class="workout-list">
+        <li class="workout-item" th:each="workout : ${workouts.content}">
+            <a class="workout-link" th:href="@{/workout/{id}(id=${workout.getId()})}">
+                <span class="day-of-week" th:text="${#temporals.format(workout.date.toLocalDateTime(), 'EEEE')}"></span>
+                <span class="workout-date" th:text="${#temporals.format(workout.date.toLocalDateTime(), 'dd.MM.yyyy')}"></span>
+                <span class="muscle-group" th:text="${workout.getMuscleGroup.getRussianDayName()}"></span>
+            </a>
+        </li>
+    </ul>
+
+    <div th:if="${workouts.totalPages > 1}" class="pagination">
+        <span th:each="i : ${#numbers.sequence(0, workouts.totalPages - 1)}">
+            <span th:if="${i == workouts.number}" class="current">[[${i + 1}]]</span>
+            <a th:unless="${i == workouts.number}"
+               th:href="@{/workout(page=${i}, size=${workouts.size})}">[[${i + 1}]]</a>
+        </span>
+    </div>
+
+    <hr class="divider"/>
+    <div class="back-btn">
+        <a th:href="@{/menu}"><button class="btn" type="button">Назад</button></a>
+    </div>
+
+</div>
+</body>
+</html>

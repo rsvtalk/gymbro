@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить вес</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
+        body {
+            font-size: 32px;
+            line-height: 1.5;
+            margin: 0;
+            padding: 50px 0;
+            background: #fafafa;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .btn {
+            background: firebrick;
+            color: white;
+            padding: 24px 48px;
+            border: none;
+            border-radius: 16px;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn:hover {
+            background: #b22222;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .divider {
+            border: none;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, firebrick, transparent);
+            margin: 40px auto;
+            max-width: 1000px;
+        }
+
+        /* Стили для заголовка GymBro */
+        .gymbro-header {
+            color: firebrick;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        /* Весы */
+        .scale-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 60px auto;
+            max-width: 1000px;
+        }
+
+        .scale-body {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(145deg, #f5f5f5, #e8e8e8);
+            border-radius: 20px;
+            box-shadow: 6px 6px 15px rgba(0,0,0,0.08),
+            -6px -6px 15px rgba(255,255,255,0.8);
+            border: 1px solid #e8e8e8;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .scale-display {
+            background: #0a0a0a;
+            border-radius: 8px;
+            padding: 20px;
+            width: 200px;
+            height: 80px;
+            text-align: center;
+            margin-bottom: 40px;
+            border: 2px solid #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 10px rgba(0, 80, 120, 0.3);
+        }
+
+        .weight-input {
+            background: #0a0a0a;
+            border: none;
+            color: #00c8ff;
+            font-size: 2.2rem;
+            font-family: 'Orbitron', monospace;
+            font-weight: 500;
+            text-align: center;
+            width: 100%;
+            padding: 5px;
+            outline: none;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(0, 200, 255, 0.5);
+        }
+
+        /* Убираем стрелки у number input */
+        .weight-input::-webkit-outer-spin-button,
+        .weight-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .weight-input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .weight-input::placeholder {
+            color: #003344;
+            text-shadow: 0 0 5px rgba(0, 200, 255, 0.2);
+        }
+
+        .weight-unit {
+            color: #00aacc;
+            font-size: 1.1rem;
+            font-family: 'Orbitron', monospace;
+            font-weight: 400;
+            text-shadow: 0 0 3px rgba(0, 200, 255, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .scale-button {
+            background: transparent;
+            color: #888;
+            border: 1.5px solid #d0d0d0;
+            border-radius: 20px;
+            padding: 12px 25px;
+            font-size: 1.3rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 30px;
+        }
+
+        .scale-button:hover {
+            color: #555;
+            border-color: #aaa;
+            background: rgba(0,0,0,0.03);
+        }
+
+        .scale-brand {
+            position: absolute;
+            bottom: 25px;
+            color: #ddd;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        /* Сообщения об ошибках */
+        .error-message {
+            color: #dc143c;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            font-weight: 500;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h2 class="gymbro-header">GymBro</h2>
+    <hr class="divider"/>
+
+    <!-- Сообщение для первого ввода веса -->
+    <div th:if="${isFirst}" style="text-align: center; margin-bottom: 40px;">
+        <div style="font-size: 2.2rem; color: #333; font-family: 'Montserrat', sans-serif; margin-bottom: 20px;">
+            Добавьте свой первый вес
+        </div>
+        <div style="font-size: 1.6rem; color: #666; font-family: 'Roboto', sans-serif;">
+            Это позволит вести статистику, а также выдавать рекомендации по потреблению калорий !
+        </div>
+    </div>
+
+    <!-- Весы -->
+    <div class="scale-container">
+        <form th:action="@{/weight/add}" th:object="${weight}" method="post" class="scale-body">
+            <div class="scale-display">
+                <input type="number"
+                       th:field="*{personWeight}"
+                       class="weight-input"
+                       step="0.1"
+                       min="30"
+                       max="500"
+                       placeholder="00.0"
+                       required
+                       autofocus>
+                <div class="weight-unit" th:text="${weightUnit.shortName}">kg</div>
+            </div>
+
+            <button type="submit" class="scale-button">Добавить</button>
+
+            <div class="scale-brand">GymBro</div>
+
+            <!-- Сообщения об ошибках -->
+            <div th:if="${#fields.hasErrors('personWeight')}" class="error-message">
+                <span th:errors="*{personWeight}"></span>
+            </div>
+        </form>
+    </div>
+
+    <hr class="divider"/>
+
+    <!-- Кнопка назад -->
+    <div style="text-align: center; margin-top: 40px;">
+        <a th:if="${isFirst}" th:href="@{/menu}">
+            <button class="btn" type="button">Назад</button>
+        </a>
+        <a th:unless="${isFirst}" th:href="@{/weight}">
+            <button class="btn" type="button">Назад</button>
+        </a>
+    </div>
+
+</div>
+
+<script>
+    // Автофокус на поле ввода при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        const weightInput = document.querySelector('.weight-input');
+        weightInput.focus();
+
+        // Выделяем весь текст при фокусе
+        weightInput.addEventListener('focus', function() {
+            this.select();
+        });
+    });
+</script>
+
+</body>
+</html>

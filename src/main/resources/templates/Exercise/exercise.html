@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${exercise.getName()}"></title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
+        body {
+            font-size: 32px; /* 16px × 2 = 32px */
+            line-height: 1.5;
+            margin: 0;
+            padding: 40px 0; /* 20px × 2 */
+            background: #fafafa;
+        }
+
+        .container {
+            max-width: 1800px; /* 900px × 2 */
+            margin: 0 auto;
+            padding: 0 40px; /* 20px × 2 */
+        }
+
+        .btn {
+            background: firebrick;
+            color: white;
+            padding: 24px 48px; /* 12×24 ×2 */
+            border: none;
+            border-radius: 16px; /* 8px ×2 */
+            font-size: 2rem; /* 1rem ×2 */
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn:hover {
+            background: #b22222;
+            transform: translateY(-4px); /* 2px ×2 */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 4×8 ×2 */
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            padding: 16px 32px; /* 8×16 ×2 */
+            font-size: 1.5rem; /* 12px ×2 */
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+
+        .btn-danger {
+            background: #6c757d;
+            padding: 16px 32px; /* 8×16 ×2 */
+            font-size: 1.5rem; /* 12px ×2 */
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .btn-danger:hover {
+            background: #8B0000;
+            transform: translateY(-2px); /* 1px ×2 */
+        }
+
+        .divider {
+            border: none;
+            height: 4px; /* 2px ×2 */
+            background: linear-gradient(90deg, transparent, firebrick, transparent);
+            margin: 40px auto; /* 20px ×2 */
+            max-width: 1000px; /* 500px ×2 */
+        }
+
+        /* Карточка с информацией - всё ×2 */
+        .info-card {
+            background: #fafafa;
+            border: 2px solid #e0e0e0; /* 1px ×2 */
+            border-radius: 16px; /* 8px ×2 */
+            padding: 50px; /* 25px ×2 */
+            max-width: 900px; /* 450px ×2 */
+            margin: 0 auto 40px auto; /* 20px ×2 */
+            font-family: 'Roboto', sans-serif;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.05); /* 2×8 ×2 */
+        }
+
+        .info-item {
+            margin-bottom: 40px; /* 20px ×2 */
+            padding-bottom: 30px; /* 15px ×2 */
+            border-bottom: 2px solid #e8e8e8; /* 1px ×2 */
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: #333;
+            font-size: 1.75rem; /* 14px → ~28px */
+            margin-bottom: 10px; /* 5px ×2 */
+            display: block;
+        }
+
+        .info-value {
+            color: #666;
+            font-size: 1.75rem; /* 14px → ~28px */
+            font-weight: 500;
+        }
+
+        .description-label {
+            font-weight: 500;
+            color: #333;
+            font-size: 1.75rem; /* 14px → ~28px */
+            margin-bottom: 16px; /* 8px ×2 */
+            display: block;
+        }
+
+        .description-block {
+            background: white;
+            border: 2px solid #e0e0e0; /* 1px ×2 */
+            border-radius: 8px; /* 4px ×2 */
+            padding: 20px; /* 10px ×2 */
+            font-size: 1.5rem; /* 12px ×2 */
+            line-height: 1.4;
+            color: #555;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin: 30px 0; /* 15px ×2 */
+            max-width: 900px; /* 450px ×2 */
+            margin-left: auto;
+            margin-right: auto;
+            gap: 12px; /* 6px ×2 */
+        }
+
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px; /* 20px ×2 */
+            font-size: 2.25rem; /* 18px ×2 */
+        }
+
+        .back-button {
+            text-align: center;
+            margin-top: 20px; /* 10px ×2 */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h2 style="color: firebrick; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 4px; text-align: center; margin-bottom: 20px; font-size: 3rem;">GymBro</h2>
+    <hr class="divider"/>
+
+    <h3 th:text="${exercise.getName()}"></h3>
+
+    <!-- Карточка с информацией -->
+    <div class="info-card">
+        <div class="info-item">
+            <span class="info-label">Мышечная группа</span>
+            <div class="info-value" th:text="${exercise.getMuscleGroup().getRussianName()}"></div>
+        </div>
+
+        <div class="info-item">
+            <span class="description-label">Описание</span>
+            <div class="description-block" th:text="${exercise.getDescription()}"></div>
+        </div>
+    </div>
+
+    <div th:if="${exercise.getCreatedBy() != null and exercise.getCreatedBy().getId() == user.getId()}">
+        <div class="action-buttons">
+            <a th:href="@{/exercise/{id}/edit(id=${exercise.getId()})}">
+                <button class="btn btn-secondary" type="button">Редактировать</button>
+            </a>
+
+            <form th:action="@{/exercise/{id}(id=${exercise.getId()})}" method="post" style="display: inline-block;">
+                <input type="hidden" name="_method" value="delete">
+                <button class="btn btn-danger" type="submit">Удалить</button>
+            </form>
+        </div>
+    </div>
+
+    <hr class="divider"/>
+    <div class="back-button">
+        <a th:href="@{/exercise}"><button class="btn" type="button">Назад</button></a>
+    </div>
+
+</div>
+</body>
+</html>

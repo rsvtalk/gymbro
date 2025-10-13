@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-size: 32px;
+            line-height: 1.5;
+            margin: 0;
+            padding: 40px 0;
+            background: #fafafa;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .btn {
+            background: firebrick;
+            color: white;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            width: 70%;
+            display: block;
+            margin: 40px auto;
+        }
+
+        .btn:hover {
+            background: #b22222;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            width: 400px;
+            padding: 16px 32px;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+
+        .divider {
+            border: none;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, firebrick, transparent);
+            margin: 40px auto;
+            max-width: 1000px;
+        }
+
+        h2 {
+            color: firebrick;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.25rem;
+        }
+
+        .form-group {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        input[type="text"], input[type="password"], input[type="number"], input[type="email"] {
+            width: 70%;
+            padding: 20px 24px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.75rem;
+            transition: border-color 0.2s;
+            background: #fafafa;
+            box-sizing: border-box;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input::placeholder {
+            color: #666;
+            font-size: 1.75rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: firebrick;
+            background: white;
+        }
+
+        .gender-switch {
+            display: flex;
+            border: 2px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            width: 300px;
+            margin: 0 auto 40px auto;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .gender-option {
+            flex: 1;
+            padding: 16px 8px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: #ccc;
+            z-index: 1;
+            position: relative;
+        }
+
+        .gender-option.active {
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 100, 100, 0.8);
+        }
+
+        .gender-switch::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            left: 4px;
+            width: 146px;
+            background: linear-gradient(145deg, firebrick, #ff4444);
+            border-radius: 8px;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 0 0 30px rgba(178, 34, 34, 0.6);
+        }
+
+        .gender-switch.female-active::before {
+            left: calc(100% - 150px);
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 1.5rem;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .email-error {
+            color: #dc3545;
+            font-size: 1.5rem;
+            margin-top: 10px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .back-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-button a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>GymBro</h2>
+    <hr class="divider"/>
+
+    <div class="form-container">
+        <h3>Регистрация</h3>
+
+        <form th:action="@{/auth/register}" th:object="${person}" method="post">
+            <!-- Переключатель пола ВНУТРИ формы -->
+            <div class="gender-switch">
+                <div class="gender-option active" data-gender="MALE">Мужчина</div>
+                <div class="gender-option" data-gender="FEMALE">Девушка</div>
+            </div>
+            <input type="hidden" name="gender" id="genderInput" value="MALE">
+
+            <!-- Email -->
+            <div class="form-group">
+                <input type="email" th:field="*{username}" placeholder="Ваш email" required maxlength="50">
+                <div th:if="${error}" class="email-error">
+                    <span th:text="${error}"></span>
+                </div>
+                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message"></div>
+            </div>
+
+            <!-- Пароль -->
+            <div class="form-group">
+                <input type="password" th:field="*{password}" placeholder="Пароль" required>
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></div>
+            </div>
+
+            <!-- Имя -->
+            <div class="form-group">
+                <input type="text" th:field="*{name}" placeholder="Ваше имя" required>
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></div>
+            </div>
+
+            <!-- Год рождения -->
+            <div class="form-group">
+                <input type="number" th:field="*{year}" placeholder="Год рождения" required min="1900" max="2024">
+                <div th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="error-message"></div>
+            </div>
+
+            <!-- Рост -->
+            <div class="form-group">
+                <input type="number" th:field="*{height}" placeholder="Ваш рост (см)" required min="50" max="250">
+                <div th:if="${#fields.hasErrors('height')}" th:errors="*{height}" class="error-message"></div>
+            </div>
+
+            <button type="submit" class="btn">Зарегистрироваться</button>
+        </form>
+
+        <div class="back-button">
+            <a th:href="@{/auth/login}"><button type="button" class="btn btn-secondary">Назад</button></a>
+        </div>
+    </div>
+
+    <hr class="divider"/>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const genderSwitch = document.querySelector('.gender-switch');
+        const genderOptions = document.querySelectorAll('.gender-option');
+        const genderInput = document.getElementById('genderInput');
+
+        // Очищаем поле роста если значение 0
+        const heightInput = document.querySelector('input[name="height"]');
+        if (heightInput && heightInput.value === '0') {
+            heightInput.value = '';
+        }
+
+        genderOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                genderOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                genderInput.value = this.dataset.gender;
+
+                if (this.dataset.gender === 'MALE') {
+                    genderSwitch.classList.remove('female-active');
+                } else {
+                    genderSwitch.classList.add('female-active');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

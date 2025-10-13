@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Меню</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
+        body {
+            font-size: 32px; /* 16px × 2 = 32px */
+            line-height: 1.5;
+            margin: 0;
+            padding: 50px 0; /* 20px × 2.5 */
+            background: #fafafa;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            max-width: 1800px; /* 900px × 2 */
+            margin: 0 auto;
+            padding: 0 40px; /* 20px × 2 */
+        }
+
+        .btn {
+            background: firebrick;
+            color: white;
+            padding: 24px 48px; /* 12×24 ×2 */
+            border: none;
+            border-radius: 16px; /* 8px ×2 */
+            font-size: 2rem; /* 16px ×2 = 32px */
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn:hover {
+            background: #b22222;
+            transform: translateY(-4px); /* 2px ×2 */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 4×8 ×2 */
+        }
+
+        .btn-logout {
+            background: #8B0000;
+            border: 4px solid #8B0000; /* 2px ×2 */
+        }
+
+        .btn-logout:hover {
+            background: #600000;
+            border-color: #600000;
+        }
+
+        .divider {
+            border: none;
+            height: 4px; /* 2px ×2 */
+            background: linear-gradient(90deg, transparent, firebrick, transparent);
+            margin: 60px auto; /* 30px ×2 */
+            max-width: 1800px; /* 900px ×2 */
+        }
+
+        /* Стили для меню */
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            max-width: 640px; /* 320px ×2 */
+            margin: 0 auto;
+        }
+
+        .menu-item {
+            margin-bottom: 30px; /* 15px ×2 */
+            text-align: center;
+        }
+
+        .menu-link {
+            display: block;
+            padding: 24px 48px; /* 12×24 ×2 */
+            background: #fafafa;
+            color: #2c2c2c;
+            text-decoration: none;
+            border-radius: 16px; /* 8px ×2 */
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 2rem; /* 16px ×2 = 32px */
+            border: 4px solid firebrick; /* 2px ×2 */
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* 2×6 ×2 */
+        }
+
+        .menu-link:hover {
+            background: firebrick;
+            color: white;
+            transform: translateY(-4px); /* 2px ×2 */
+            box-shadow: 0 8px 24px rgba(178, 34, 34, 0.3); /* 4×12 ×2 */
+        }
+
+        /* Стили для заголовка GymBro */
+        .gymbro-header {
+            color: firebrick;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 4px; /* 2px ×2 */
+            text-align: center;
+            font-size: 2.5rem; /* 20px ×2 = 40px */
+            margin-bottom: 20px;
+        }
+
+        .center-content {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h2 class="gymbro-header">GymBro</h2>
+    <hr class="divider"/>
+
+    <ul class="menu-list">
+        <li class="menu-item">
+            <a class="menu-link" href="/workout">Мои тренировки</a>
+        </li>
+        <li class="menu-item">
+            <a class="menu-link" href="/statistic">Статистика по упражнениям</a>
+        </li>
+        <li class="menu-item">
+            <a class="menu-link" href="/exercise">Библиотека упражнений</a>
+        </li>
+        <li class="menu-item">
+            <a class="menu-link" href="/weight">Контроль веса</a>
+        </li>
+        <li class="menu-item">
+            <a class="menu-link" href="/settings">Настройки</a>
+        </li>
+    </ul>
+
+    <hr class="divider"/>
+    <div class="center-content">
+        <button class="btn btn-logout" onclick="location.href='/logout'">Выход</button>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ошибка доступа</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ВСЁ УВЕЛИЧЕНО В 2 РАЗА ОТ НОРМЫ */
+        body {
+            font-size: 32px; /* 16px × 2 = 32px */
+            line-height: 1.5;
+            margin: 0;
+            padding: 40px 0; /* 20px × 2 */
+            background: #fafafa;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            max-width: 1800px; /* 900px × 2 */
+            margin: 0 auto;
+            padding: 0 40px; /* 20px × 2 */
+            text-align: center;
+        }
+
+        .btn {
+            background: firebrick;
+            color: white;
+            padding: 20px 40px; /* 10×20 ×2 */
+            border: none;
+            border-radius: 12px; /* 6px ×2 */
+            font-size: 1.75rem; /* 14px ×2 = 28px */
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: #b22222;
+            transform: translateY(-2px); /* 1px ×2 */
+        }
+
+        .divider {
+            border: none;
+            height: 4px; /* 2px ×2 */
+            background: linear-gradient(90deg, transparent, firebrick, transparent);
+            margin: 40px auto; /* 20px ×2 */
+            max-width: 1000px; /* 500px ×2 */
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: firebrick;
+            margin: 60px 0; /* 30px ×2 */
+            font-size: 3rem; /* 24px ×2 = 48px */
+        }
+
+        h2 {
+            color: firebrick;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 4px; /* 2px ×2 */
+            text-align: center;
+            font-size: 2.5rem; /* 20px ×2 = 40px */
+            margin-bottom: 20px; /* 10px ×2 */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>GymBro</h2>
+    <hr class="divider"/>
+
+    <h1>Упс, вам отказано в доступе :(</h1>
+
+    <hr class="divider"/>
+    <a th:href="@{/menu}"><button type="button" class="btn">Назад</button></a>
+</div>
+</body>
+</html>
