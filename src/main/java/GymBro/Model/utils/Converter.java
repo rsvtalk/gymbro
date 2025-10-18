@@ -100,7 +100,12 @@ public class Converter {
     public static String cmToFt(int cm) {
         double totalInches = cm / 2.54;
         int feet = (int) (totalInches / 12);
-        int inches = (int) Math.round(totalInches % 12);
+        int inches = (int) Math.round(totalInches - (feet * 12));
+
+        if (inches == 12) {
+            feet++;
+            inches = 0;
+        }
 
         return feet + "'" + inches + "\"";
     }

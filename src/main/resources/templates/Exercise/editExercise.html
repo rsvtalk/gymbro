@@ -171,7 +171,7 @@
                 <label>Группа мышц:</label>
                 <select th:field="*{muscleGroup}" required>
                     <option value="">-- Выберите группу --</option>
-                    <option th:each="group : ${T(GymBro.Model.MuscleGroup).values()}"
+                    <option th:each="group : ${T(GymBro.Model.enums.MuscleGroup).values()}"
                             th:value="${group}"
                             th:selected="${exercise.muscleGroup == group}"
                             th:text="${group.russianName}"></option>
