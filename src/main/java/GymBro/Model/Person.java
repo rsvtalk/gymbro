@@ -50,10 +50,10 @@ public class Person {
     private Gender gender;
 
     @Enumerated(EnumType.STRING)
-    private WeightUnit weightUnit;
+    private WeightUnit weightUnit = WeightUnit.KG;
 
     @Enumerated(EnumType.STRING)
-    private HeightUnit heightUnit;
+    private HeightUnit heightUnit = HeightUnit.CM;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Weight> weights;
